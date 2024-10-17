@@ -1,17 +1,37 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-   
-  const loginHandler = () =>{
-    console.log(email, password);
-  }
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const loginHandler = async () => {
+    try {
+      const res = await axios.post(
+        "http://localhost:205/login",
+        { email, password },
+        { withCredentials: true }
+      );
+
+      dispatch(addUser(res.data));
+      console.log("User added successfully");
+      return navigate("/Feed");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className="card bg-neutral-content w-96 shadow-xl  mx-auto my-[10%]">
       <div className="card-body">
-        <h1 className="mx-auto text-3xl font-extrabold text-black my-6">Login</h1>
+        <h1 className="mx-auto text-3xl font-extrabold text-black my-6">
+          Login
+        </h1>
         <label className="input input-bordered flex items-center gap-2 mb-4">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -27,7 +47,9 @@ const Login = () => {
             className="grow"
             value={email}
             placeholder="Email"
-            onChange={(e)=>{setEmail(e.target.value)}}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
           />
         </label>
 
@@ -49,12 +71,16 @@ const Login = () => {
             className="grow"
             value={password}
             placeholder="******"
-            onChange={(e)=>{setPassword(e.target.value)}}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
           />
         </label>
 
         <div className="card-actions justify-center">
-          <button className="btn btn-primary" onClick={loginHandler}>Login</button>
+          <button className="btn btn-primary" onClick={loginHandler}>
+            Login
+          </button>
         </div>
       </div>
     </div>
