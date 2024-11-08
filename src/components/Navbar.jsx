@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { useSelector, useDispatch} from "react-redux";
-import { json, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { removeUser } from "../utils/userSlice";
 import { Link } from "react-router-dom";
 
@@ -19,7 +19,7 @@ const Navbar = () => {
   return navigate("/Login");
   }
   catch(err){
-      json.status(400).mess
+      err.status(400).send(err.message);
   }
  }
   return (
@@ -50,7 +50,7 @@ const Navbar = () => {
               <li>
                 <Link to="/Profile" className="justify-between">
                   Profile
-                  <span className="badge">New</span>
+                  {/* <span className="badge">New</span> */}
                 </Link>
               </li>
               <li>
