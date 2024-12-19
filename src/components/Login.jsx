@@ -6,6 +6,9 @@ import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [isLogin, setIsLogin] = useState(true);
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const dispatch = useDispatch();
@@ -28,13 +31,45 @@ const Login = () => {
     }
   };
 
+
+  const signupHandler = async () => {
+    try {
+      const res = await axios.post(
+        "http://localhost:205/signup",
+        { email, password, firstName, lastName },
+        { withCredentials: true }
+      );
+
+      dispatch(addUser(res.data));
+      console.log("User added successfully");
+      return navigate("/Profile");
+    } catch (err) {
+      console.log(err);
+      setError(err?.response?.data || "something went wrong");
+    }
+  };
+
   return (
     <div className="card bg-neutral-content w-96 shadow-xl  mx-auto my-[10%]">
       <div className="card-body">
         <h1 className="mx-auto text-3xl font-extrabold text-black my-6">
-          Login
+          {isLogin ? "Login" : "SignUp"}
         </h1>
-        <label className="input input-bordered flex items-center gap-2 mb-4">
+{ !isLogin && 
+   (
+   <div>
+      <label className="input input-bordered flex items-center gap-2 mb-5">
+      <input type="text" value={firstName}  placeholder="FirstName" onChange={(e)=>setFirstName(e.target.value)} className="grow" />
+     </label>
+
+    <label className="input input-bordered flex items-center gap-2 mb-5">
+      
+      <input type="text" value={lastName}  placeholder="LastName" onChange={(e)=>setLastName(e.target.value)} className="grow" />
+    </label>
+    </div>
+    )
+}
+        <label className="input input-bordered flex items-center gap-2 mb-5">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 16 16"
@@ -55,7 +90,7 @@ const Login = () => {
           />
         </label>
 
-        <label className="input input-bordered flex items-center gap-2 my-3">
+        <label className="input input-bordered flex items-center gap-2 mb-3">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 16 16"
@@ -78,14 +113,18 @@ const Login = () => {
             }}
           />
         </label>
-          
-         <p className="text-red-600 font-bold text-xl mb-5">{error}</p>
+
+        <p className="text-red-600 font-bold text-xl mb-5">{error}</p>
 
         <div className="card-actions justify-center">
-          <button className="btn btn-primary" onClick={loginHandler}>
-            Login
+          <button className="btn btn-primary" onClick={isLogin ? loginHandler : signupHandler}>
+            {isLogin ? "Login" : "Sign Up"}
           </button>
         </div>
+        
+        <p className="text-black text-center font-bold hover:cursor-pointer" onClick={()=>setIsLogin(!isLogin)}>
+          {isLogin ? "New User? Sign Up": "Already a user? Login"}
+        </p>
       </div>
     </div>
   );

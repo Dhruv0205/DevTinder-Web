@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { addRequest } from "../utils/requestSlice";
+import { removeRequest } from "../utils/requestSlice";
 
 const Request = () => {
   const [error, setError] = useState("");
@@ -31,9 +32,25 @@ const Request = () => {
 
   if (requestRecieved.length === 0) {
     return (
-      <h1 className="flex justify-center text-center font-bold text-2xl">NO REQUEST FOUND!!</h1>
+      <h1 className="flex justify-center mt-10 font-bold text-2xl">
+        NO REQUEST FOUND!!
+      </h1>
     );
   }
+
+  const onClickHandler = async (status, requestid) => {
+    try {
+      const res = await axios.post(
+        "http://localhost:205/request/review/" + status + "/" + requestid,
+        {},
+        { withCredentials: true }
+      );
+
+      dispatch(removeRequest(requestid));
+    } catch (err) {
+      setError(err.message);
+    }
+  };
 
   return (
     <div>
@@ -42,7 +59,7 @@ const Request = () => {
         const { photoUrl, firstName, lastName, age, gender, about, skills } =
           requests.fromUserId;
         return (
-          <div className="w-1/2 mx-auto bg-gray-900 flex rounded-lg shadow-2xl">
+          <div className="w-1/2 mx-auto bg-gray-900 flex rounded-lg shadow-2xl mb-5">
             <div className="m-3">
               <img src={photoUrl} className="h-32 w-32 rounded-full" alt="" />
             </div>
@@ -54,15 +71,18 @@ const Request = () => {
               <p>{about}</p>
               <h2 className="font-bold">Skills: {skills}</h2>
               <div className="flex justify-end mb-3">
-                {/* <button className="bg-primary w-24 text-xl mx-4 rounded-lg font-bold text-black">
+                <button
+                  className="btn btn-primary text-lg mx-4"
+                  onClick={()=>onClickHandler("rejected", requests._id)}
+                >
+                  Reject
+                </button>
+                <button
+                  className="btn btn-secondary text-lg"
+                  onClick={()=>onClickHandler("accepted", requests._id)}
+                >
                   Accept
                 </button>
-                <button className="bg-secondary w-24 text-xl font-bold rounded-lg text-black">
-                  Reject
-                </button> */}
-
-                <button className="btn btn-primary text-lg mx-4">Reject</button>
-                <button className="btn btn-secondary text-lg">Accept</button>
               </div>
             </div>
           </div>
