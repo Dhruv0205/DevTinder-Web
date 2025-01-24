@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { removeUser } from "../utils/userSlice";
 import { Link } from "react-router-dom";
 
+
 const Navbar = () => {
  
   const navigate = useNavigate();
@@ -14,8 +15,11 @@ const Navbar = () => {
 
  const clickHandler = async() =>{
   try{
-  await axios.post("http://localhost:205/logout");
+  await axios.post("http://localhost:205/logout", 
+    {},
+    { withCredentials: true });
   dispatch(removeUser());
+  
   return navigate("/Login");
   }
   catch(err){
