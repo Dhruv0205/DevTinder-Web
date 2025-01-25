@@ -35,7 +35,7 @@ const Navbar = () => {
       {user && (
         <div className="flex-none gap-2">
           <div className="form-control">
-            <h1 className="text-black">Welcome Back, {user.firstName}</h1>
+            <h1 className="text-white font-semibold text-2xl"> Welcome back, {user.firstName}👋</h1>
           </div>
           <div className="dropdown dropdown-end mx-11">
             <div

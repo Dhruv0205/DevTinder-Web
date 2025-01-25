@@ -27,10 +27,9 @@ const Login = () => {
       return navigate("/Feed");
     } catch (err) {
       console.log(err);
-      setError(err?.response?.data || "something went wrong");
+      setError(err?.response?.data || "Something went wrong");
     }
   };
-
 
   const signupHandler = async () => {
     try {
@@ -45,86 +44,104 @@ const Login = () => {
       return navigate("/Profile");
     } catch (err) {
       console.log(err);
-      setError(err?.response?.data || "something went wrong");
+      setError(err?.response?.data || "Something went wrong");
     }
   };
 
   return (
-    <div className="card bg-neutral-content w-96 shadow-xl  mx-auto my-[10%]">
-      <div className="card-body">
-        <h1 className="mx-auto text-3xl font-extrabold text-black my-6">
-          {isLogin ? "Login" : "SignUp"}
-        </h1>
-{ !isLogin && 
-   (
-   <div>
-      <label className="input input-bordered flex items-center gap-2 mb-5">
-      <input type="text" value={firstName}  placeholder="FirstName" onChange={(e)=>setFirstName(e.target.value)} className="grow" />
-     </label>
-
-    <label className="input input-bordered flex items-center gap-2 mb-5">
-      
-      <input type="text" value={lastName}  placeholder="LastName" onChange={(e)=>setLastName(e.target.value)} className="grow" />
-    </label>
-    </div>
-    )
-}
-        <label className="input input-bordered flex items-center gap-2 mb-5">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
-            fill="currentColor"
-            className="h-4 w-4 opacity-70"
-          >
-            <path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z" />
-            <path d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
-          </svg>
-          <input
-            type="text"
-            className="grow"
-            value={email}
-            placeholder="Email"
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
+    <div className="flex min-h-screen bg-gradient-to-br from-indigo-500 to-pink-500">
+      {/* Left Side - Image Section */}
+      <div className="w-1/2 flex justify-center items-center bg-indigo-600 text-white">
+        <div className="text-center p-8">
+          <img
+            src="https://via.placeholder.com/400x400.png?text=Welcome"
+            alt="Boy giving directions"
+            className="rounded-lg shadow-lg"
           />
-        </label>
-
-        <label className="input input-bordered flex items-center gap-2 mb-3">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
-            fill="currentColor"
-            className="h-4 w-4 opacity-70"
-          >
-            <path
-              fillRule="evenodd"
-              d="M14 6a4 4 0 0 1-4.899 3.899l-1.955 1.955a.5.5 0 0 1-.353.146H5v1.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2.293a.5.5 0 0 1 .146-.353l3.955-3.955A4 4 0 1 1 14 6Zm-4-2a.75.75 0 0 0 0 1.5.5.5 0 0 1 .5.5.75.75 0 0 0 1.5 0 2 2 0 0 0-2-2Z"
-              clipRule="evenodd"
-            />
-          </svg>
-          <input
-            type="password"
-            className="grow"
-            value={password}
-            placeholder="******"
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-          />
-        </label>
-
-        <p className="text-red-600 font-bold text-xl mb-5">{error}</p>
-
-        <div className="card-actions justify-center">
-          <button className="btn btn-primary" onClick={isLogin ? loginHandler : signupHandler}>
-            {isLogin ? "Login" : "Sign Up"}
-          </button>
+          <h2 className="text-3xl font-bold mt-4">Join Us Today</h2>
+          <p className="mt-2 text-xl">Sign up and be part of our community</p>
         </div>
-        
-        <p className="text-black text-center font-bold hover:cursor-pointer" onClick={()=>setIsLogin(!isLogin)}>
-          {isLogin ? "New User? Sign Up": "Already a user? Login"}
-        </p>
+      </div>
+
+      {/* Right Side - Form Section */}
+      <div className="w-1/2 flex justify-center items-center bg-white">
+        <div className="card w-96 p-6 shadow-xl rounded-2xl">
+          <h1 className="text-3xl font-extrabold text-center mb-6 text-indigo-600">
+            {isLogin ? "Login" : "Sign Up"}
+          </h1>
+
+          {/* First Name & Last Name (Only for Sign Up) */}
+          {!isLogin && (
+            <div className="space-y-4">
+              <label className="block">
+                <input
+                  type="text"
+                  value={firstName}
+                  placeholder="First Name"
+                  onChange={(e) => setFirstName(e.target.value)}
+                  className="w-full px-4 py-2 rounded-xl border-2 border-gray-300 focus:ring-2 focus:ring-indigo-400 focus:outline-none"
+                />
+              </label>
+
+              <label className="block">
+                <input
+                  type="text"
+                  value={lastName}
+                  placeholder="Last Name"
+                  onChange={(e) => setLastName(e.target.value)}
+                  className="w-full px-4 py-2 rounded-xl border-2 border-gray-300 focus:ring-2 focus:ring-indigo-400 focus:outline-none"
+                />
+              </label>
+            </div>
+          )}
+
+          {/* Email Input */}
+          <label className="block mb-4">
+            <input
+              type="text"
+              className="w-full px-4 py-2 rounded-xl border-2 border-gray-300 focus:ring-2 focus:ring-indigo-400 focus:outline-none"
+              value={email}
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </label>
+
+          {/* Password Input */}
+          <label className="block mb-6">
+            <input
+              type="password"
+              className="w-full px-4 py-2 rounded-xl border-2 border-gray-300 focus:ring-2 focus:ring-indigo-400 focus:outline-none"
+              value={password}
+              placeholder="******"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </label>
+
+          {/* Error Message */}
+          {error && (
+            <p className="text-red-600 font-bold text-xl mb-5 text-center">
+              {error}
+            </p>
+          )}
+
+          {/* Submit Button */}
+          <div className="card-actions justify-center mt-4">
+            <button
+              className="btn bg-indigo-600 text-white font-bold w-full py-3 rounded-lg hover:bg-indigo-700 transition duration-300"
+              onClick={isLogin ? loginHandler : signupHandler}
+            >
+              {isLogin ? "Login" : "Sign Up"}
+            </button>
+          </div>
+
+          {/* Toggle Between Login/Signup */}
+          <p
+            className="text-center text-gray-700 mt-6 font-semibold cursor-pointer hover:text-indigo-600"
+            onClick={() => setIsLogin(!isLogin)}
+          >
+            {isLogin ? "New User? Sign Up" : "Already a user? Login"}
+          </p>
+        </div>
       </div>
     </div>
   );

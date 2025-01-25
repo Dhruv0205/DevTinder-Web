@@ -14,10 +14,12 @@ const EditProfile = ({ user }) => {
   const [about, setAbout] = useState(user.about || " ");
   const [gender, setGender] = useState(user.gender || " ");
   const [error, setError] = useState(" ");
+const[toast, setToast]=useState(false);
 
   const dispatch = useDispatch();
 
   const saveHandler = async () => {
+    setError("");
     try {
       const res = await axios.patch(
         "http://localhost:205/profile/edit",
@@ -25,12 +27,20 @@ const EditProfile = ({ user }) => {
         { withCredentials: true }
       );
       dispatch(addUser(res?.data?.data));
+
+      setToast(true);
+
+      setTimeout(() => {
+        setToast(false);
+      }, 3000);
+
     } catch (err) {
       setError(err.message);
     }
   };
 
   return (
+    <>
     <div className="flex justify-center">
       <div>
         <div className="card bg-neutral-content w-[150%] shadow-xl  my-[15%]">
@@ -147,6 +157,13 @@ const EditProfile = ({ user }) => {
         />
       </div>
     </div>
+
+   {toast && (<div class="toast toast-top toast-center">
+  <div class="alert alert-success">
+    <span>Profile edited successfully.</span>
+  </div>
+</div>)}
+    </>
   );
 };
 

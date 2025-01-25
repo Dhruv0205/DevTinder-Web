@@ -37,7 +37,7 @@ const Feed = () => {
   return (
     readFeed && (
       <div className="mt-20 ml-[40%]">
-        <FeedCard user={readFeed[4]} />
+        <FeedCard user={readFeed[2]} />
         <p>{error}</p>
       </div>
     )
