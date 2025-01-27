@@ -14,7 +14,6 @@ const Feed = () => {
       const res = await axios.get("http://localhost:205/feed", {
         withCredentials: true,
       });
-      // console.log(res.data);
       dispatch(addFeed(res.data));
     } catch (err) {
       setError(err.message);
@@ -37,7 +36,7 @@ const Feed = () => {
   return (
     readFeed && (
       <div className="mt-20 ml-[40%]">
-        <FeedCard user={readFeed[2]} />
+        <FeedCard user={readFeed[0]} />
         <p>{error}</p>
       </div>
     )

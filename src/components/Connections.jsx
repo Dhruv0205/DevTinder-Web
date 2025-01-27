@@ -6,7 +6,7 @@ import { addConnection } from "../utils/connectionSlice";
 const Connections = () => {
   const [error, setError] = useState("");  // Declare error state
   const dispatch = useDispatch();
-  const connectedUsers = useSelector((store) => store.connections);
+  const connectedUsers = useSelector((store) => store.connections) || [];  // Ensure it's always an array
 
   const fetchConnections = async () => {
     try {
@@ -25,38 +25,38 @@ const Connections = () => {
 
   if (error) return <h1>Error: {error}</h1>;  // Display error message if there's an error
 
-  if (!connectedUsers)  return (<div className="flex w-52 flex-col gap-4 mx-auto  mt-40">
-    <div className="skeleton h-32 w-full"></div>
-    <div className="skeleton h-4 w-28"></div>
-    <div className="skeleton h-4 w-full"></div>
-    <div className="skeleton h-4 w-full"></div>
-  </div>);
-
   if (connectedUsers.length === 0) return <h1>No Connection Found!!</h1>;
 
   return (
     <div className="justify-center">
       <h1 className="text-4xl text-center font-bold mt-5">Connections</h1>
-      {connectedUsers.map((connection) => (
-        <div key={connection.id} className="w-1/2 flex bg-gray-900 mx-auto mt-14 rounded-lg shadow-2xl text-white">
-          <div>
-            <img
-              src={connection.photoUrl}
-              alt="profilePicture"
-              className="h-32 w-32 m-2 rounded-full"
-            />
+      {connectedUsers.map((connection, index) => {
+        if (!connection) {
+          // Skip rendering if connection is null or undefined
+          return null;
+        }
+
+        return (
+          <div key={connection.id || index} className="w-1/2 flex bg-gray-900 mx-auto mt-14 rounded-lg shadow-2xl text-white">
+            <div>
+              <img
+                src={connection.photoUrl || 'default-photo-url.jpg'}  // Fallback to default photo if photoUrl is missing
+                alt="profilePicture"
+                className="h-32 w-32 m-2 rounded-full"
+              />
+            </div>
+            <div className="text-start ml-3 mt-2">
+              <h2 className="font-bold text-lg">
+                {connection.firstName + " " + connection.lastName}
+              </h2>
+              <h2 className="font-semibold text-lg">
+                {connection.age + ", " + connection.gender}
+              </h2>
+              <p>{connection.about}</p>
+            </div>
           </div>
-          <div className="text-start ml-3 mt-2">
-            <h2 className="font-bold text-lg">
-              {connection.firstName + " " + connection.lastName}
-            </h2>
-            <h2 className="font-semibold text-lg">
-              {connection.age + ", " + connection.gender}
-            </h2>
-            <p>{connection.about}</p>
-          </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };
