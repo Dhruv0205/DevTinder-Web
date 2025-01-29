@@ -10,7 +10,7 @@ const FeedCard = ({ user }) => {
   const onClickHandler = async (status, userid) => {
     try {
       const res = await axios.post(
-        `http://localhost:205/request/send/${status}/${userid}`,
+        `/api/request/send/${status}/${userid}`,
         {},
         { withCredentials: true }
       );

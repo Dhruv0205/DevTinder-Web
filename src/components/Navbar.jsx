@@ -15,7 +15,7 @@ const Navbar = () => {
 
  const clickHandler = async() =>{
   try{
-  await axios.post("http://localhost:205/logout", 
+  await axios.post("/api/logout", 
     {},
     { withCredentials: true });
   dispatch(removeUser());

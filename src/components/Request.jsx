@@ -13,7 +13,7 @@ const Request = () => {
 
   const Requests = async () => {
     try {
-      const res = await axios.get("http://localhost:205/user/request/recieved", {
+      const res = await axios.get("/api/user/request/recieved", {
         withCredentials: true,
       });
       dispatch(addRequest(res?.data?.connectionRequests));

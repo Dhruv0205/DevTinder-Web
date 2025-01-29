@@ -11,7 +11,7 @@ const Feed = () => {
   const getFeed = async () => {
     try {
       if (readFeed) return;
-      const res = await axios.get("http://localhost:205/feed", {
+      const res = await axios.get("/api/feed", {
         withCredentials: true,
       });
       dispatch(addFeed(res.data));
