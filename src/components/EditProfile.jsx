@@ -4,6 +4,7 @@ import FeedCard from "./FeedCard";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { BASE_URL } from "../utils/constant";
 
 const EditProfile = ({ user }) => {
   const [firstName, setFirstName] = useState(user.firstName || " ");
@@ -22,7 +23,7 @@ const[toast, setToast]=useState(false);
     setError("");
     try {
       const res = await axios.patch(
-        "http://localhost:205/profile/edit",
+        BASE_URL + "/profile/edit",
         { firstName, lastName, age, photoUrl, skills, about, gender },
         { withCredentials: true }
       );
