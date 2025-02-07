@@ -5,8 +5,18 @@ import { removeFeed } from "../utils/feedSlice";
 import { BASE_URL } from "../utils/constant";
 
 const FeedCard = ({ user }) => {
-  const { firstName, lastName, photoUrl, skills, about, age, gender, _id } = user;
+  const { firstName, lastName, photoUrl, skills: rawSkills, about, age, gender, _id } = user;
   const dispatch = useDispatch();
+
+  // Ensure skills is always an array
+  let skills = [];
+  if (Array.isArray(rawSkills)) {
+    skills = rawSkills;
+  } else if (typeof rawSkills === 'string') {
+    skills = rawSkills.split(',').map(skill => skill.trim()); // Convert comma-separated string to array
+  } else if (rawSkills) {
+    skills = [rawSkills]; // Wrap non-array values in an array
+  }
 
   const onClickHandler = async (status, userid) => {
     try {
@@ -23,7 +33,7 @@ const FeedCard = ({ user }) => {
   };
 
   return (
-    <div className=" min-h-screen ">
+    <div className="min-h-screen">
       <div className="card bg-white shadow-xl rounded-xl overflow-hidden max-w-sm w-full transform hover:scale-105 transition-all duration-300">
         <figure className="relative">
           <img

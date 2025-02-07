@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { addConnection } from "../utils/connectionSlice";
-
+import { BASE_URL } from "../utils/constant";
+import { Link } from "react-router-dom";
 const Connections = () => {
   const [error, setError] = useState("");  // Declare error state
   const dispatch = useDispatch();
@@ -10,7 +11,7 @@ const Connections = () => {
 
   const fetchConnections = async () => {
     try {
-      const res = await axios.get("/api/user/connections", {
+      const res = await axios.get(BASE_URL + "/user/connections", {
         withCredentials: true,
       });
       dispatch(addConnection(res?.data?.data));
@@ -37,7 +38,7 @@ const Connections = () => {
         }
 
         return (
-          <div key={connection.id || index} className="w-1/2 flex bg-gray-900 mx-auto mt-14 rounded-lg shadow-2xl text-white">
+          <div key={connection._id || index} className="w-1/2 flex bg-gray-900 mx-auto mt-14 rounded-lg shadow-2xl text-white">
             <div>
               <img
                 src={connection.photoUrl || 'default-photo-url.jpg'}  // Fallback to default photo if photoUrl is missing
@@ -53,7 +54,9 @@ const Connections = () => {
                 {connection.age + ", " + connection.gender}
               </h2>
               <p>{connection.about}</p>
-            </div>
+
+            <Link to={"/chat/" + connection._id }> <button className="btn btn-outline btn-secondary">Secondary</button> </Link>
+            </div>           
           </div>
         );
       })}
