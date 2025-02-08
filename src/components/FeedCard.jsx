@@ -56,7 +56,7 @@ const FeedCard = ({ user }) => {
           <div className="card-actions justify-center mt-6 space-x-4">
             <button
               className="btn btn-outline btn-error font-semibold text-lg py-2 px-6 rounded-full hover:bg-red-500 hover:text-white transition-all duration-200"
-              onClick={() => onClickHandler("rejected", _id)}
+              onClick={() => onClickHandler("ignore", _id)}
             >
               Ignore
             </button>

@@ -24,10 +24,8 @@ const Login = () => {
       );
 
       dispatch(addUser(res.data));
-      console.log("User added successfully");
       return navigate("/Feed");
     } catch (err) {
-      console.log(err);
       setError(err?.response?.data || "Something went wrong");
     }
   };
@@ -41,33 +39,41 @@ const Login = () => {
       );
 
       dispatch(addUser(res.data));
-      console.log("User added successfully");
       return navigate("/Profile");
     } catch (err) {
-      console.log(err);
       setError(err?.response?.data || "Something went wrong");
     }
   };
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-indigo-500 to-pink-500">
+    <div className="flex flex-col lg:flex-row min-h-screen bg-gradient-to-br from-teal-100 to-pink-100">
       {/* Left Side - Image Section */}
-      <div className="w-1/2 flex justify-center items-center bg-indigo-600 text-white">
-        <div className="text-center p-8">
+      <div className="w-full lg:w-1/2 flex flex-col justify-center items-start bg-teal-500 text-white p-8">
+        <div className="flex items-center flex-col lg:flex-row">
+          {/* Larger Image */}
           <img
-            src="https://via.placeholder.com/400x400.png?text=Welcome"
+            src="https://img.freepik.com/premium-vector/welcome-word-concept-illustration_958800-102731.jpg?w=996"
             alt="Boy giving directions"
-            className="rounded-lg shadow-lg"
+            className="w-32 h-32 lg:w-48 lg:h-48 mr-0 lg:mr-6 rounded-full shadow-lg mb-6 lg:mb-0"
           />
-          <h2 className="text-3xl font-bold mt-4">Join Us Today</h2>
-          <p className="mt-2 text-xl">Sign up and be part of our community</p>
+          <div>
+            <h2 className="text-3xl lg:text-4xl font-extrabold mt-4 text-white drop-shadow-lg">
+              Join Us Today
+            </h2>
+            <p className="mt-2 text-lg text-white drop-shadow-lg">
+              Sign up and be part of our community
+            </p>
+            <p className="mt-4 text-md text-white opacity-80">
+              Get access to exclusive content, connect with like-minded people, and enjoy great benefits by joining our community!
+            </p>
+          </div>
         </div>
       </div>
 
       {/* Right Side - Form Section */}
-      <div className="w-1/2 flex justify-center items-center bg-white">
-        <div className="card w-96 p-6 shadow-xl rounded-2xl">
-          <h1 className="text-3xl font-extrabold text-center mb-6 text-indigo-600">
+      <div className="w-full lg:w-1/2 flex justify-center items-center p-4">
+        <div className="card w-full lg:w-96 p-6 shadow-xl rounded-2xl bg-gradient-to-r from-pink-100 to-teal-100">
+          <h1 className="text-3xl font-extrabold text-center mb-6 text-gray-700">
             {isLogin ? "Login" : "Sign Up"}
           </h1>
 
@@ -80,7 +86,7 @@ const Login = () => {
                   value={firstName}
                   placeholder="First Name"
                   onChange={(e) => setFirstName(e.target.value)}
-                  className="w-full px-4 py-2 rounded-xl border-2 border-gray-300 focus:ring-2 focus:ring-indigo-400 focus:outline-none"
+                  className="w-full px-4 py-2 rounded-xl border-2 border-gray-300 focus:ring-2 focus:ring-teal-400 focus:outline-none"
                 />
               </label>
 
@@ -90,17 +96,17 @@ const Login = () => {
                   value={lastName}
                   placeholder="Last Name"
                   onChange={(e) => setLastName(e.target.value)}
-                  className="w-full px-4 py-2 rounded-xl border-2 border-gray-300 focus:ring-2 focus:ring-indigo-400 focus:outline-none"
+                  className="w-full px-4 py-2 rounded-xl border-2 border-gray-300 focus:ring-2 focus:ring-teal-400 focus:outline-none"
                 />
               </label>
             </div>
           )}
 
           {/* Email Input */}
-          <label className="block mb-4">
+          <label className="block my-4">
             <input
               type="text"
-              className="w-full px-4 py-2 rounded-xl border-2 border-gray-300 focus:ring-2 focus:ring-indigo-400 focus:outline-none"
+              className="w-full px-4 py-2 rounded-xl border-2 border-gray-300 focus:ring-2 focus:ring-teal-400 focus:outline-none"
               value={email}
               placeholder="Email"
               onChange={(e) => setEmail(e.target.value)}
@@ -111,7 +117,7 @@ const Login = () => {
           <label className="block mb-6">
             <input
               type="password"
-              className="w-full px-4 py-2 rounded-xl border-2 border-gray-300 focus:ring-2 focus:ring-indigo-400 focus:outline-none"
+              className="w-full px-4 py-2 rounded-xl border-2 border-gray-300 focus:ring-2 focus:ring-teal-400 focus:outline-none"
               value={password}
               placeholder="******"
               onChange={(e) => setPassword(e.target.value)}
@@ -128,7 +134,7 @@ const Login = () => {
           {/* Submit Button */}
           <div className="card-actions justify-center mt-4">
             <button
-              className="btn bg-indigo-600 text-white font-bold w-full py-3 rounded-lg hover:bg-indigo-700 transition duration-300"
+              className="btn bg-teal-500 text-white font-bold w-full py-3 rounded-lg hover:bg-teal-600 transition duration-300"
               onClick={isLogin ? loginHandler : signupHandler}
             >
               {isLogin ? "Login" : "Sign Up"}
@@ -137,7 +143,7 @@ const Login = () => {
 
           {/* Toggle Between Login/Signup */}
           <p
-            className="text-center text-gray-700 mt-6 font-semibold cursor-pointer hover:text-indigo-600"
+            className="text-center text-gray-700 mt-6 font-semibold cursor-pointer hover:text-teal-600"
             onClick={() => setIsLogin(!isLogin)}
           >
             {isLogin ? "New User? Sign Up" : "Already a user? Login"}
