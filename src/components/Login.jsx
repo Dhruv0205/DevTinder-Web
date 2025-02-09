@@ -46,9 +46,9 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row min-h-screen bg-gradient-to-br from-teal-100 to-pink-100">
-      {/* Left Side - Image Section */}
-      <div className="w-full lg:w-1/2 flex flex-col justify-center items-start bg-teal-500 text-white p-8">
+    <div className="flex flex-col lg:flex-row min-h-screen bg-gradient-to-br from-teal-100 to-pink-100 items-center justify-center">
+      {/* Left Side - Image Section (Hidden on mobile) */}
+      <div className="w-full lg:w-1/2 flex flex-col justify-center items-start bg-teal-500 text-white p-8 lg:block hidden">
         <div className="flex items-center flex-col lg:flex-row">
           {/* Larger Image */}
           <img
